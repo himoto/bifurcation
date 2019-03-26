@@ -71,7 +71,14 @@ function gaussianElimination!(m::Int,s::Matrix{Float64},e::Vector{Float64})
 end
 
 # Newton's method
-function newtonsMethod!(x::Vector{Float64},re::Vector{Float64},im::Vector{Float64},fix_num::Int,p::Vector{Float64},successful::Bool)
+function newtonsMethod!(
+    x::Vector{Float64},
+    real_part::Vector{Float64},
+    imaginary_part::Vector{Float64},
+    fix_num::Int,
+    p::Vector{Float64},
+    successful::Bool
+)
     u::Vector{Float64} = zeros(SN);
     vx::Vector{Float64} = zeros(MN);
     s::Matrix{Float64} = zeros(MN,MN+1);
@@ -130,8 +137,8 @@ function newtonsMethod!(x::Vector{Float64},re::Vector{Float64},im::Vector{Float6
 
         eigenvalues::Array{Complex{Float64},1} = eigvals(dFdx);
         for i=1:SN
-            re[i] = real(eigenvalues[i]);
-            im[i] = imag(eigenvalues[i]);
+            real_part[i] = real(eigenvalues[i]);
+            imaginary_part[i] = imag(eigenvalues[i]);
         end
 
         # s = [dF-F]
@@ -194,8 +201,8 @@ function newCurve(p::Vector{Float64})
     x::Vector{Float64} = zeros(VN);
     dx::Vector{Float64} = zeros(VN);
 
-    re::Vector{Float64} = zeros(SN);
-    im::Vector{Float64} = zeros(SN);
+    real_part::Vector{Float64} = zeros(SN);
+    imaginary_part::Vector{Float64} = zeros(SN);
 
     # file
     if !isdir("./Data")
@@ -224,7 +231,7 @@ function newCurve(p::Vector{Float64})
 
     # first Newton's method
     successful::Bool = true;
-    newtonsMethod!(x,re,im,fix_num,p,successful);
+    newtonsMethod!(x,real_part,imaginary_part,fix_num,p,successful);
 
     write(FOUT1,@sprintf("%d\t",count));
     for i=1:VN
@@ -234,7 +241,7 @@ function newCurve(p::Vector{Float64})
 
     write(FOUT2,@sprintf("%d\t",count));
     for i=1:SN
-        write(FOUT2,@sprintf("%10.8e\t%10.8e\t",re[i],im[i]));
+        write(FOUT2,@sprintf("%10.8e\t%10.8e\t",real_part[i],imaginary_part[i]));
     end
     write(FOUT2,@sprintf("%10.8e\t%d\n",p[BP],fix_num));
 
@@ -250,7 +257,7 @@ function newCurve(p::Vector{Float64})
     x[fix_num] = fix_val;
 
     while count <= MC && successful
-        newtonsMethod!(x,re,im,fix_num,p,successful);
+        newtonsMethod!(x,real_part,imaginary_part,fix_num,p,successful);
 
         # maximum variation
         for i=1:VN
@@ -291,7 +298,7 @@ function newCurve(p::Vector{Float64})
 
         write(FOUT2,@sprintf("%d\t",count));
         for i=1:SN
-            write(FOUT2,@sprintf("%10.8e\t%10.8e\t",re[i],im[i]));
+            write(FOUT2,@sprintf("%10.8e\t%10.8e\t",real_part[i],imaginary_part[i]));
         end
         write(FOUT2,@sprintf("%10.8e\t%d\n",p[BP],fix_num));
 
