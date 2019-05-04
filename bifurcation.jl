@@ -6,7 +6,8 @@ using ForwardDiff;
 
 
 const SN = length(F_V);      # num of state variables
-const VN = SN+1;             # num of variables
+const PN = 1;                # num of parameters
+const VN = SN+PN;            # num of variables
 const MN = SN;               # dim of Newton's method
 
 const MC = 100000;           # maximum of counts
@@ -16,7 +17,11 @@ const NEPS = 1e-12;          # eps of Newton's method
 
 
 # matrix transformation (large diagonal elements move to upper) k: pivot
-function pivoting!(m::Int,s::Matrix{Float64},k::Int)
+function pivoting!(
+    m::Int,
+    s::Matrix{Float64},
+    k::Int
+    )
     v0::Vector{Float64} = zeros(m+1);
     v1::Vector{Float64} = zeros(m+1);
     possess::Int = 0;
@@ -42,7 +47,11 @@ function pivoting!(m::Int,s::Matrix{Float64},k::Int)
 end
 
 # Gaussian elimination (row reduction)
-function gaussianElimination!(m::Int,s::Matrix{Float64},e::Vector{Float64})
+function gaussianElimination!(
+    m::Int,
+    s::Matrix{Float64},
+    e::Vector{Float64}
+    )
     for i=1:m
         pivoting!(m,s,i);
     end
@@ -78,7 +87,7 @@ function newtonsMethod!(
     fix_num::Int,
     p::Vector{Float64},
     successful::Bool
-)
+    )
     u::Vector{Float64} = zeros(SN);
     vx::Vector{Float64} = zeros(MN);
     s::Matrix{Float64} = zeros(MN,MN+1);
