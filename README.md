@@ -1,5 +1,6 @@
 # bifurcation_analysis
-#### Rata *et al.*, *Curr. Biol.* (2018)
+#### A numerical study of the changes in the dynamics and stability of a system upon variations in its parameters
+Rata *et al.*, *Curr. Biol.* (2018)
 ![Subp_1NMPP1](https://user-images.githubusercontent.com/31299606/57923783-39d76100-78de-11e9-9de2-95a385a06a13.png)
 Signal-response curves for mitotic substrate phosphorylation in single cells as a function of inhibitor concentration. Steady-state substrate phosphorylation is high (red), low (blue), or intermediate (orange).
 
