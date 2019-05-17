@@ -2,7 +2,7 @@
 include("model/f_parameter.jl");
 include("model/f_variable.jl");
 include("model/param_derivative.jl");
-include("model/steadystate.jl");
+include("model/steady_state.jl");
 include("model/differential_equation.jl");
 include("../../bifurcation.jl");
 
