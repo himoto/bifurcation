@@ -15,15 +15,15 @@ for i=1:4
             end
         end
     end
-    
+
     subplot(1,4,i);
-    
+
     if i==1
-        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="darkblue");
-        plot(fp[i][br[i][1]:intermediate_ss[1]-1,VN+1],fp[i][br[i][1]:intermediate_ss[1]-1,Subp+1],color="gray","--");
-        plot(fp[i][intermediate_ss,VN+1],fp[i][intermediate_ss,Subp+1],color="sandybrown");
-        plot(fp[i][intermediate_ss[end]+1:br[i][end],VN+1],fp[i][intermediate_ss[end]+1:br[i][end],Subp+1],color="gray","--");
-        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="firebrick");
+        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="royalblue");
+        plot(fp[i][br[i][1]:intermediate_ss[1]-1,VN+1],fp[i][br[i][1]:intermediate_ss[1]-1,Subp+1],color="darkgray","--");
+        plot(fp[i][intermediate_ss,VN+1],fp[i][intermediate_ss,Subp+1],color="darkorange");
+        plot(fp[i][intermediate_ss[end]+1:br[i][end],VN+1],fp[i][intermediate_ss[end]+1:br[i][end],Subp+1],color="darkgray","--");
+        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="crimson");
 
         xlim(0,0.81);
         xlabel("1NMPP1 (μM)");
@@ -31,37 +31,37 @@ for i=1:4
         yticks([0,0.5,1],[0,50,100]);
         ylabel("Sub-p (%)");
         title("Control",fontsize=18);
-        
+
     elseif i==2
-        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="darkblue");
-        plot(fp[i][br[i],VN+1],fp[i][br[i],Subp+1],color="gray","--");
-        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="firebrick");
-        
+        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="royalblue");
+        plot(fp[i][br[i],VN+1],fp[i][br[i],Subp+1],color="darkgray","--");
+        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="crimson");
+
         xlim(0,0.81);
         xlabel("1NMPP1 (μM)");
         ylim(-0.05,1.05);
         yticks([0,0.5,1],[0,50,100]);
         title("Wee1 inhibition",fontsize=18);
-        
+
     elseif i==3
-        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="darkblue");
-        plot(fp[i][br[i],VN+1],fp[i][br[i],Subp+1],color="gray","--");
-        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="firebrick");
-        
+        plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,Subp+1],color="royalblue");
+        plot(fp[i][br[i],VN+1],fp[i][br[i],Subp+1],color="darkgray","--");
+        plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,Subp+1],color="crimson");
+
         xlim(0,0.81);
         xlabel("1NMPP1 (μM)");
         ylim(-0.05,1.05);
         yticks([0,0.5,1],[0,50,100]);
         title("Gwl siRNA",fontsize=18);
-    
+
     elseif i==4
-        plot(fp[i][:,VN+1],fp[i][:,Subp+1],color="sandybrown");
-        
+        plot(fp[i][:,VN+1],fp[i][:,Subp+1],color="darkorange");
+
         xlim(0,0.81);
         xlabel("1NMPP1 (μM)");
         ylim(-0.05,1.05);
         yticks([0,0.5,1],[0,50,100]);
         title("Wee1 inhibition & Gwl siRNA",fontsize=18);
     end
-        
+
 end
