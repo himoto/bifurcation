@@ -1,4 +1,4 @@
-# Bifurcation
+# bifurcation_analysis
 ## Procedure for stability analysis at fixed points
 1. Determine the fixed point vector, ***x***<sup>∗</sup>, solving ***F***(***x***<sup>∗</sup>) = **0**
 1. Construct the Jacobian matrix, *J*(***x***) = *∂*__*F*__(***x***)/*∂*__*x*__
@@ -14,7 +14,7 @@
   - PyPlot
 - **[Juno](http://junolab.org)**
 ## Installation
-    $ git clone https://github.com/u360665a/Bifurcation.git
+    $ git clone https://github.com/okadalabipr/bifurcation_analysis.git
 ## Acknowledgements
 I would particularly like to thank Dr. Gouhei Tanaka (Graduate School of Engineering, The University of Tokyo) for valuable discussions.
 ## References
@@ -24,4 +24,4 @@ I would particularly like to thank Dr. Gouhei Tanaka (Graduate School of Enginee
 
 - Rata, S. et al. Two Interlinked Bistable Switches Govern Mitotic Control in Mammalian Cells. Curr. Biol. 28, 3824-3832.e6 (2018). https://doi.org/10.1016/j.cub.2018.09.059
 ## License
-MIT
+[MIT](/LICENSE)
