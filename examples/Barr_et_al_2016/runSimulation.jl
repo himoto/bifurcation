@@ -36,5 +36,5 @@ for i=1:5
     push!(br,bistable_regime(ev[i]));
 end
 
-include("plot_func.jl");
+include("plotFunc.jl");
 savefig("./p27_CycE.png",bbox_inches="tight");

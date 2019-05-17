@@ -33,5 +33,5 @@ for i=1:4
     push!(br,bistable_regime(ev[i]));
 end
 
-include("plot_func.jl");
+include("plotFunc.jl");
 savefig("./Subp_1NMPP1.png",bbox_inches="tight");

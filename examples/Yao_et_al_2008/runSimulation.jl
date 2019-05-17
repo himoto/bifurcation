@@ -15,5 +15,5 @@ fp = readdlm("./Data/fp.dat",'\t',Float64,'\n');
 ev = readdlm("./Data/ev.dat",'\t',Float64,'\n');
 br = bistable_regime(ev);
 
-include("plot_func.jl");
+include("plotFunc.jl");
 savefig("./E2F_Serum.png",bbox_inches="tight");
