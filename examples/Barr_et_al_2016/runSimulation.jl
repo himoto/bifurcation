@@ -13,20 +13,20 @@ fp = [];
 ev = [];
 br = [];
 
-for i=1:5
+for i=1:6
     global p = f_params();
 
     if i==1
         p[Emi1T] = 0.0;
-    elseif i==1
-        p[Emi1T] = 0.5;
     elseif i==2
-        p[Emi1T] = 0.75;
+        p[Emi1T] = 0.5;
     elseif i==3
-        p[Emi1T] = 1.0;
+        p[Emi1T] = 0.75;
     elseif i==4
-        p[Emi1T] = 1.25;
+        p[Emi1T] = 1.0;
     elseif i==5
+        p[Emi1T] = 1.25;
+    elseif i==6
         p[Emi1T] = 2.0;
     end
 

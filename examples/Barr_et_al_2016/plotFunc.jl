@@ -10,10 +10,10 @@ plot(fp[1][1:br[1][1]-1,VN+1],fp[1][1:br[1][1]-1,p27T+1],"r-");
 plot(fp[1][br[1],VN+1],fp[1][br[1],p27T+1],"r--");
 plot(fp[1][br[1][end]+1:end,VN+1],fp[1][br[1][end]+1:end,p27T+1],"r-");
 
-for i=2:5
-  plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,p27T+1],"-",color="silver");
-  plot(fp[i][br[i],VN+1],fp[i][br[i],p27T+1],"--",color="silver");
-  plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,p27T+1],"-",color="silver");
+for i=2:6
+    plot(fp[i][1:br[i][1]-1,VN+1],fp[i][1:br[i][1]-1,p27T+1],"-",color="silver");
+    plot(fp[i][br[i],VN+1],fp[i][br[i],p27T+1],"--",color="silver");
+    plot(fp[i][br[i][end]+1:end,VN+1],fp[i][br[i][end]+1:end,p27T+1],"-",color="silver");
 end
 
 xlabel("CycE level");
