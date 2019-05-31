@@ -13,11 +13,12 @@ function diffeq_ss(du,u,p,t)
 end
 
 function get_steady_state(p::Vector{Float64})
-    tspan_ss::Tuple{Float64,Float64} = (0.0,1000.0);
+    tspan_ss::Tuple{Float64,Float64} = (0.0,Inf);
     u0::Vector{Float64} = zeros(SN);
 
     prob = ODEProblem(diffeq_ss,u0,tspan_ss,p);
-    sol = solve(prob,CVODE_BDF());
+    prob = SteadyStateProblem(prob);
+    sol = solve(prob,DynamicSS(CVODE_BDF()),dt=1.0);
 
     return sol.u[end]
 end

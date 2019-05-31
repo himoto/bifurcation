@@ -1,6 +1,7 @@
 using Printf;
 using DelimitedFiles;
 using LinearAlgebra;
+using SteadyStateDiffEq;
 using Sundials;
 using ForwardDiff;
 

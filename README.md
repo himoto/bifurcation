@@ -15,9 +15,10 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
 
 ## Requirements
 - **[Julia 1.0+](https://julialang.org)**
-  - Sundials
-  - ForwardDiff
-  - PyPlot
+    - SteadyStateDiffEq
+    - Sundials
+    - ForwardDiff
+    - PyPlot
 - **[Juno](http://junolab.org)**
 
 ## Installation
