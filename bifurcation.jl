@@ -206,7 +206,7 @@ function newtonsMethod!(
 end
 
 
-function newCurve(p::Vector{Float64})
+function newCurve!(p::Vector{Float64})
     count::Int = 1;
     x::Vector{Float64} = zeros(VN);
     dx::Vector{Float64} = zeros(VN);

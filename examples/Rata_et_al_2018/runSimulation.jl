@@ -27,7 +27,7 @@ for i=1:4
         p[Gwtot] = 0.0;
     end
 
-    newCurve(p);
+    newCurve!(p);
     push!(fp,readdlm("./Data/fp.dat",'\t',Float64,'\n'));
     push!(ev,readdlm("./Data/ev.dat",'\t',Float64,'\n'));
     push!(br,bistable_regime(ev[i]));

@@ -10,7 +10,7 @@ include("../../bifurcation.jl");
 const BP = S;
 
 p = f_params();
-newCurve(p);
+newCurve!(p);
 fp = readdlm("./Data/fp.dat",'\t',Float64,'\n');
 ev = readdlm("./Data/ev.dat",'\t',Float64,'\n');
 br = bistable_regime(ev);
