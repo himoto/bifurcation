@@ -11,9 +11,9 @@ const BP = S;
 
 p = f_params();
 newCurve!(p);
-fp = readdlm("./Data/fp.dat",'\t',Float64,'\n');
-ev = readdlm("./Data/ev.dat",'\t',Float64,'\n');
-br = bistable_regime(ev);
+const fp = readdlm("./Data/fp.dat",'\t',Float64,'\n');
+const ev = readdlm("./Data/ev.dat",'\t',Float64,'\n');
+const br = bistable_regime(ev);
 
 include("plotFunc.jl");
 savefig("./E2F_Serum.png",bbox_inches="tight");
