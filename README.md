@@ -1,4 +1,4 @@
-# bifurcation_analysis
+# Bifurcation Analysis
 #### A numerical study of the changes in the dynamics and stability of a system upon variations in its parameters
 Rata *et al.*, *Curr. Biol.* (2018)
 ![Subp_1NMPP1](https://user-images.githubusercontent.com/31299606/57923783-39d76100-78de-11e9-9de2-95a385a06a13.png)
@@ -6,8 +6,8 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
 
 ## Procedure for stability analysis at fixed points
 1. Determine the fixed point vector, ***x***<sup>∗</sup>, solving ***F***(***x***<sup>∗</sup>) = **0**
-1. Construct the Jacobian matrix, *J*(***x***) = *∂*__*F*__(***x***)/*∂*__*x*__
-1. Compute eigenvalues of *J*(***x***<sup>∗</sup>): det |*J*(***x***<sup>∗</sup>) − *λ*__*E*__| = 0
+1. Construct the Jacobian matrix, __*J*__(***x***) = *∂*__*F*__(***x***)/*∂*__*x*__
+1. Compute eigenvalues of __*J*__(***x***<sup>∗</sup>): det |__*J*__(***x***<sup>∗</sup>) − *λ*__*E*__| = 0
 1. Stability or instability of ***x***<sup>∗</sup> based on the real parts, Re(*λ*), of eigenvalues
     - All eigenvalues have real parts less than zero → ***x***<sup>∗</sup> is stable
     - At least one of the eigenvalues has a real part greater than zero
@@ -21,7 +21,7 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
     - [PyPlot](https://github.com/JuliaPy/PyPlot.jl)
 
 ## Installation
-    $ git clone https://github.com/himoto/Bifurcation.git
+    $ git clone https://github.com/himoto/bifurcation.git
 
 ## Acknowledgements
 I would particularly like to thank Dr. Gouhei Tanaka (Graduate School of Engineering, The University of Tokyo) for valuable discussions.
