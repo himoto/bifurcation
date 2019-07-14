@@ -20,6 +20,17 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
     - [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl)
     - [PyPlot](https://github.com/JuliaPy/PyPlot.jl)
 
+## Plotting bifurcation diagram
+```julia
+# Change directory to example/XXX
+
+include("main.jl")
+using .Bifurcation
+
+Bifurcation.analysis()
+Bifurcation.diagram()
+```
+
 ## Installation
     $ git clone https://github.com/himoto/bifurcation.git
 
