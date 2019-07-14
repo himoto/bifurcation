@@ -1,12 +1,10 @@
 using Printf;
 using DelimitedFiles;
 using LinearAlgebra;
-using SteadyStateDiffEq;
-using Sundials;
-using ForwardDiff;
+using ForwardDiff: jacobian;
 
 
-const SN = length(F_V);      # num of state variables
+const SN = V.len_f_vars;     # num of state variables
 const PN = 1;                # num of parameters
 const VN = SN+PN;            # num of variables
 const MN = SN;               # dim of Newton's method
@@ -80,6 +78,7 @@ function gaussianElimination!(
     end
 end
 
+
 # Newton's method
 function newtonsMethod!(
     x::Vector{Float64},
@@ -140,8 +139,8 @@ function newtonsMethod!(
         end
 
         # initialization
-        dFdx::Matrix{Float64} = ForwardDiff.jacobian(diffeq,u);
-        dFdp::Vector{Float64} = get_derivatives(u,p);
+        dFdx::Matrix{Float64} = jacobian(diffeq,u);
+        dFdp::Vector{Float64} = getDerivatives(u,p);
 
         F::Vector{Float64} = diffeq(u);
 
@@ -229,7 +228,7 @@ function newCurve!(p::Vector{Float64})
     fix_num0::Int = VN;
 
     # initial condition
-    x[1:SN] = get_steady_state(p);
+    x[1:SN] = getSteadyState(p);
     x[end] = p[BP];
 
     direction::Bool = false;  # <--- || --->
@@ -293,7 +292,7 @@ function newCurve!(p::Vector{Float64})
                 j = i;
             end
         end
-        fix_num = j; # fix_num = argmax(abs.(dx));
+        fix_num = j;
 
         # Stop calc.
         if x[end] <= 0.0
@@ -320,11 +319,11 @@ function newCurve!(p::Vector{Float64})
 end
 
 
-function bistable_regime(ev::Matrix{Float64})
+function bistableRegime(ev::Matrix{Float64})
     br::Vector{Int} = [];
 
     for i=1:size(ev,1)
-        if maximum(ev[i,[2j for j=1:length(F_V)]]) > 0.0
+        if maximum(ev[i,[2j for j=1:SN]]) > 0.0
             push!(br,i);
         end
     end
