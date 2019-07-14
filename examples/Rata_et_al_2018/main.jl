@@ -1,7 +1,5 @@
 module Bifurcation
 
-export fp, ev, br, diagrams
-
 using PyPlot;
 
 include("model/model.jl");
