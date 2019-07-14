@@ -1,3 +1,4 @@
+module V
 const F_V = [
     "p27T"
     "CycEp27"
@@ -11,3 +12,7 @@ const F_V = [
 for (index,value) in enumerate(F_V)
     eval(Meta.parse("const $value=$index"));
 end
+
+const len_f_vars = length(F_V);
+
+end  # module
