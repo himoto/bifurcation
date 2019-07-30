@@ -8,7 +8,7 @@ include("model/differentialEquation.jl");
 
 include("../../continuation.jl");
 
-include("bifurcationAnalysis.jl");
-include("bifurcationDiagram.jl");
+include("analysis.jl");
+include("diagram.jl");
 
 end  # module
