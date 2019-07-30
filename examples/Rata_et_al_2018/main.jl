@@ -6,7 +6,7 @@ include("model/model.jl");
 using .Model;
 include("model/differentialEquation.jl");
 
-include("../../bifurcation.jl");
+include("../../continuation.jl");
 
 include("bifurcationAnalysis.jl");
 include("bifurcationDiagram.jl");
