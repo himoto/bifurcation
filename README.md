@@ -24,7 +24,7 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
 ```julia
 # Change directory to examples/XXX
 
-include("main.jl")
+include("bifurcation.jl")
 using .Bifurcation
 
 Bifurcation.analysis()
