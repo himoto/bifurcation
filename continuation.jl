@@ -260,7 +260,7 @@ function newCurve!(p::Vector{Float64})
     px::Vector{Float64} = copy(x);
 
     # variation
-    direction ? fix_val += IVAL : fix_val -= IVAL;
+    fix_val += ifelse(direction, +IVAL, -IVAL);
 
     # same fixed variable
     x[fix_num] = fix_val;
