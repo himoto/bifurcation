@@ -9,7 +9,6 @@ include("name2idx/name2idx.jl");
 using .Name2Idx
 
 include("paramConst.jl");
-# include("differentialEquation.jl");
 include("paramDerivative.jl");
 include("steadyState.jl");
 

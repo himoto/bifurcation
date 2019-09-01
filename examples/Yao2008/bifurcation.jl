@@ -4,8 +4,7 @@ using PyPlot;
 
 include("model/model.jl");
 using .Model;
-include("model/differentialEquation.jl");
-
+include("./differentialEquation.jl");
 include("../../continuation.jl");
 
 function analysis()
