@@ -1,5 +1,5 @@
 module V
-const F_V = [
+const var_names = [
     "Subp"
     "CycBCdk1"
     "PP1"
@@ -13,10 +13,10 @@ const F_V = [
 ];
 
 #name2idx
-for (index,value) in enumerate(F_V)
-    eval(Meta.parse("const $value=$index"));
+for (idx,name) in enumerate(var_names)
+    eval(Meta.parse("const $name = $idx"));
 end
 
-const len_f_vars = length(F_V);
+const len_f_vars = length(var_names);
 
 end  # module

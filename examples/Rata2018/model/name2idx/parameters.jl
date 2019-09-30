@@ -1,5 +1,5 @@
 module C
-const F_P = [
+const param_names = [
     "InhCDK"
     "CycBCdk1T"
     "CycACdk2T"
@@ -38,10 +38,10 @@ const F_P = [
 ];
 
 #name2idx
-for (index,value) in enumerate(F_P)
-    eval(Meta.parse("const $value=$index"));
+for (idx,name) in enumerate(param_names)
+    eval(Meta.parse("const $name = $idx"));
 end
 
-const len_f_params = length(F_P);
+const len_f_params = length(param_names);
 
 end  # module
