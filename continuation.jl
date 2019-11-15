@@ -145,9 +145,9 @@ function newtonsMethod!(
         F::Vector{Float64} = diffeq(u);
 
         eigenvalues::Array{Complex{Float64},1} = eigvals(dFdx);
-        for i=1:SN
-            real_part[i] = real(eigenvalues[i]);
-            imaginary_part[i] = imag(eigenvalues[i]);
+        for (i,eigenvalue) in enumerate(eigenvalues)
+            real_part[i] = real(eigenvalue);
+            imaginary_part[i] = imag(eigenvalue);
         end
 
         # s = [dF-F]
@@ -269,23 +269,25 @@ function newCurve!(p::Vector{Float64})
         newtonsMethod!(x,real_part,imaginary_part,fix_num,p,successful);
 
         # maximum variation
-        for i=1:VN
-            dx[i] = x[i] - px[i];
+        for i in eachindex(dx)
+            @inbounds dx[i] = x[i] - px[i];
         end
-        sum = 0.0;
-        for i=1:VN
+        sum::Float64 = 0.0;
+        for i in eachindex(dx)
             sum += dx[i]*dx[i];
         end
-        ave = sqrt(sum);
-        for i=1:VN
+        ave::Float64 = sqrt(sum);
+        for i in eachindex(dx)
             dx[i] /= ave;
         end
         px = copy(x);
-        for i=1:VN
-            x[i] += abs(RATE)*dx[i];
+        for (i,diff) in enumerate(dx)
+            x[i] += abs(RATE)*diff;
         end
 
         # fix variable with maximum variation
+        fix_num = argmin(abs.(dx));
+        #=
         j::Int = 1;
         for i=2:VN
             if abs(dx[j]) < abs(dx[i])
@@ -293,6 +295,8 @@ function newCurve!(p::Vector{Float64})
             end
         end
         fix_num = j;
+        =#
+
 
         # Stop calc.
         if x[end] <= 0.0
