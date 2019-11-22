@@ -5,6 +5,7 @@ Rata *et al.*, *Curr. Biol.* (2018)
 Signal-response curves for mitotic substrate phosphorylation in single cells as a function of inhibitor concentration. Steady-state substrate phosphorylation is high (red), low (blue), or intermediate (orange).
 
 ## Procedure for stability analysis at fixed points
+Consider the following system of ordinary differential equations: d***x***/dt = ***F***(***x***)
 1. Determine the fixed point vector, ***x***<sup>∗</sup>, solving ***F***(***x***<sup>∗</sup>) = **0**
 1. Construct the Jacobian matrix, __*J*__(***x***) = *∂*__*F*__(***x***)/*∂*__*x*__
 1. Compute eigenvalues of __*J*__(***x***<sup>∗</sup>): det |__*J*__(***x***<sup>∗</sup>) − *λ*__*E*__| = 0
@@ -14,11 +15,10 @@ Signal-response curves for mitotic substrate phosphorylation in single cells as 
 → ***x***<sup>∗</sup> is unstable
 
 ## Requirements
-- **[Julia 1.0+](https://julialang.org)**
-    - [SteadyStateDiffEq](https://github.com/JuliaDiffEq/SteadyStateDiffEq.jl)
-    - [Sundials](https://github.com/JuliaDiffEq/Sundials.jl)
-    - [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl)
-    - [PyPlot](https://github.com/JuliaPy/PyPlot.jl)
+> - [SteadyStateDiffEq](https://github.com/JuliaDiffEq/SteadyStateDiffEq.jl)
+> - [Sundials](https://github.com/JuliaDiffEq/Sundials.jl)
+> - [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl)
+> - [PyPlot](https://github.com/JuliaPy/PyPlot.jl)
 
 ## Plotting bifurcation diagram
 ```julia
