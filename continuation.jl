@@ -16,17 +16,13 @@ const NEPS = 1e-12;          # eps of Newton's method
 
 
 # matrix transformation (large diagonal elements move to upper) k: pivot
-function pivoting!(
-    m::Int,
-    s::Matrix{Float64},
-    k::Int
-    )
+function pivoting!(m::Int,s::Matrix{Float64},k::Int)
     v0::Vector{Float64} = zeros(m+1);
     v1::Vector{Float64} = zeros(m+1);
     possess::Int = 0;
     max::Float64 = 0.0;
 
-    for i=k:m
+    for i in k:m
         r = abs(s[i,k]);
         if max <= r
             max = r;
@@ -34,44 +30,40 @@ function pivoting!(
         end
     end
 
-    for j=1:m+1
+    for j in 1:m+1
         v0[j] = s[possess,j];
         v1[j] = s[k,j];
     end
 
-    for j=1:m+1
+    for j in 1:m+1
         s[possess,j] = v1[j];
         s[k,j] = v0[j];
     end
 end
 
 # Gaussian elimination (row reduction)
-function gaussianElimination!(
-    m::Int,
-    s::Matrix{Float64},
-    e::Vector{Float64}
-    )
-    for i=1:m
+function gaussianElimination!(m::Int,s::Matrix{Float64},e::Vector{Float64})
+    for i in 1:m
         pivoting!(m,s,i);
     end
 
-    for l=1:m                 # forward
+    for l in 1:m                 # forward
         if s[l,l] != 0.0
             w = 1.0/s[l,l];
         else
             w = 1.0;
         end
-        for j=l:m+1
+        for j in l:m+1
             s[l,j] *= w;
-            for i=l:m
+            for i in l:m
                 s[i,j] -= s[i,l]*s[l,j];
             end
         end
     end
 
-    for i=m:-1:1              # backward
+    for i in m:-1:1              # backward
         sum = 0.0;
-        for j=i:m
+        for j in i:m
             sum += s[i,j]*e[j];
         end
         e[i] = s[i,m+1] - sum;
@@ -80,21 +72,15 @@ end
 
 
 # Newton's method
-function newtonsMethod!(
-    x::Vector{Float64},
-    real_part::Vector{Float64},
-    imaginary_part::Vector{Float64},
-    fix_num::Int,
-    p::Vector{Float64},
-    successful::Bool
-    )
+function newtonsMethod!(x::Vector{Float64},real_part::Vector{Float64},imaginary_part::Vector{Float64},
+                        fix_num::Int,p::Vector{Float64},successful::Bool)
     u::Vector{Float64} = zeros(SN);
     vx::Vector{Float64} = zeros(MN);
     s::Matrix{Float64} = zeros(MN,MN+1);
 
-    for i=1:VN
+    for i in 1:VN
         if fix_num == i
-            for j=1:MN
+            for j in 1:MN
                 idx = i+j;
                 if idx > VN
                     idx -= VN;
@@ -112,7 +98,7 @@ function newtonsMethod!(
     error::Float64 = 1.0;
 
     while error > NEPS
-        for i=1:VN
+        for i in 1:VN
             if fix_num == i
                 idx_param = VN-i;
                 if idx_param == 0
@@ -121,7 +107,7 @@ function newtonsMethod!(
                     y = vx[idx_param];
                 end
                 p[BP] = y;
-                for j=1:MN
+                for j in 1:MN
                     idx = j-i;
                     if idx == 0
                         y = x[fix_num];
@@ -151,10 +137,10 @@ function newtonsMethod!(
         end
 
         # s = [dF-F]
-        for i=1:VN
+        for i in 1:VN
             if fix_num == i
                 for k=1:SN
-                    for j=1:SN
+                    for j in 1:SN
                         idx = i+j;
                         if idx == VN
                             dF = dFdp[k];
@@ -177,7 +163,7 @@ function newtonsMethod!(
 
         # update error
         error = 0.0;
-        for i=1:MN
+        for i in 1:MN
             vx[i] += e[i];
             error += e[i]*e[i];
         end
@@ -188,9 +174,9 @@ function newtonsMethod!(
         end
     end
 
-    for i=1:VN
+    for i in 1:VN
         if fix_num == i
-            for j=1:MN
+            for j in 1:MN
                 idx = i+j;
                 if idx > VN
                     idx -= VN;
@@ -243,13 +229,13 @@ function newCurve!(p::Vector{Float64})
     newtonsMethod!(x,real_part,imaginary_part,fix_num,p,successful);
 
     write(FOUT1,@sprintf("%d\t",count));
-    for i=1:VN
+    for i in 1:VN
         write(FOUT1,@sprintf("%10.8e\t",x[i]));
     end
     write(FOUT1,@sprintf("%d\n",fix_num));
 
     write(FOUT2,@sprintf("%d\t",count));
-    for i=1:SN
+    for i in 1:SN
         write(FOUT2,@sprintf("%10.8e\t%10.8e\t",real_part[i],imaginary_part[i]));
     end
     write(FOUT2,@sprintf("%10.8e\t%d\n",p[BP],fix_num));
@@ -286,17 +272,13 @@ function newCurve!(p::Vector{Float64})
         end
 
         # fix variable with maximum variation
-        fix_num = argmin(abs.(dx));
-        #=
         j::Int = 1;
-        for i=2:VN
+        for i in 2:VN
             if abs(dx[j]) < abs(dx[i])
                 j = i;
             end
         end
         fix_num = j;
-        =#
-
 
         # Stop calc.
         if x[end] <= 0.0
@@ -304,13 +286,13 @@ function newCurve!(p::Vector{Float64})
         end
 
         write(FOUT1,@sprintf("%d\t",count));
-        for i=1:VN
+        for i in 1:VN
             write(FOUT1,@sprintf("%10.8e\t",x[i]));
         end
         write(FOUT1,@sprintf("%d\n",fix_num));
 
         write(FOUT2,@sprintf("%d\t",count));
-        for i=1:SN
+        for i in 1:SN
             write(FOUT2,@sprintf("%10.8e\t%10.8e\t",real_part[i],imaginary_part[i]));
         end
         write(FOUT2,@sprintf("%10.8e\t%d\n",p[BP],fix_num));
@@ -326,8 +308,8 @@ end
 function bistableRegime(ev::Matrix{Float64})
     br::Vector{Int} = [];
 
-    for i=1:size(ev,1)
-        if maximum(ev[i,[2j for j=1:SN]]) > 0.0
+    for i in 1:size(ev,1)
+        if maximum(ev[i,[2j for j in 1:SN]]) > 0.0
             push!(br,i);
         end
     end
