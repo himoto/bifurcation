@@ -35,13 +35,13 @@ const param_names = [
     "kB55W1"
     "kB5525"
     "Kd"
-];
+]
 
 #name2idx
 for (idx,name) in enumerate(param_names)
-    eval(Meta.parse("const $name = $idx"));
+    eval(Meta.parse("const $name = $idx"))
 end
 
-const len_f_params = length(param_names);
+const len_f_params = length(param_names)
 
 end  # module

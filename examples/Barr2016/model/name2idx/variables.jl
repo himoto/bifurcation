@@ -6,13 +6,13 @@ const var_names = [
     "EmiC"
     "Cdh1"
     "Skp2"
-];
+]
 
 #name2idx
 for (idx,name) in enumerate(var_names)
-    eval(Meta.parse("const $name = $idx"));
+    eval(Meta.parse("const $name = $idx"))
 end
 
-const len_f_vars = length(var_names);
+const len_f_vars = length(var_names)
 
 end  # module

@@ -1,6 +1,6 @@
 module Model
 
-export C, V, f_params, getDerivatives, getSteadyState
+export C, V, f_params, get_derivatives, get_steady_state
 
 using SteadyStateDiffEq;
 using Sundials;
@@ -8,8 +8,8 @@ using Sundials;
 include("name2idx/name2idx.jl");
 using .Name2Idx
 
-include("paramConst.jl");
-include("paramDerivative.jl");
-include("steadyState.jl");
+include("param_const.jl");
+include("param_derivative.jl");
+include("steady_state.jl");
 
 end # module
