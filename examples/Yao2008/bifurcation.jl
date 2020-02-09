@@ -26,6 +26,8 @@ function diagram()
     rc("font",family = "Arial")
     rc("font",size = 24)
     rc("axes",linewidth = 1)
+    rc("xtick.major",width = 1)
+    rc("ytick.major",width = 1)
     rc("lines",linewidth = 3)
 
     plot(fp[1:br[1]-1,VN+1],fp[1:br[1]-1,V.E+1],"k-")
