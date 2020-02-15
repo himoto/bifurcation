@@ -7,10 +7,10 @@ tail="    return du\nend"
 printf "$header" > head.temp
 printf "$tail" > tail.temp
 
-# use sed to remove 999 lines following end and the first line concerning function
+# use sed to remove lines following end and the first line concerning function
 sed -E '/end/,$d' $1 | sed -e '/function/d' > file.temp
 
-cat head.temp file.temp tail.temp > testfile.jl
+cat head.temp file.temp tail.temp > $1
 
 rm file.temp
 rm head.temp
