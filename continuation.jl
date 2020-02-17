@@ -6,7 +6,7 @@ using ForwardDiff: jacobian
 
 const SN = V.len_f_vars     # num of state variables
 const PN = 1                # num of parameters
-const VN = SN+PN            # num of variables
+const VN = SN + PN          # num of variables
 const MN = SN               # dim of Newton's method
 
 const MC = 100000           # maximum of counts
@@ -49,14 +49,14 @@ function gaussian_elimination!(m::Int, s::Matrix{Float64}, e::Vector{Float64})
 
     for l in 1:m                 # forward
         if s[l, l] != 0.0
-            w = 1.0/s[l, l]
+            w = 1.0 / s[l, l]
         else
             w = 1.0
         end
         for j in l:m+1
             s[l, j] *= w
             for i in l:m
-                s[i, j] -= s[i, l]*s[l, j]
+                s[i, j] -= s[i, l] * s[l, j]
             end
         end
     end
@@ -64,7 +64,7 @@ function gaussian_elimination!(m::Int, s::Matrix{Float64}, e::Vector{Float64})
     for i in m:-1:1              # backward
         sum = 0.0
         for j in i:m
-            sum += s[i, j]*e[j]
+            sum += s[i, j] * e[j]
         end
         e[i] = s[i, m+1] - sum
     end
@@ -81,7 +81,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
     for i in 1:VN
         if fix_num == i
             for j in 1:MN
-                idx = i+j
+                idx = i + j
                 if idx > VN
                     idx -= VN
                 end
@@ -100,7 +100,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
     while error > NEPS
         for i in 1:VN
             if fix_num == i
-                idx_param = VN-i
+                idx_param = VN - i
                 if idx_param == 0
                     y = x[fix_num]
                 else
@@ -108,7 +108,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
                 end
                 p[BP] = y
                 for j in 1:MN
-                    idx = j-i
+                    idx = j - i
                     if idx == 0
                         y = x[fix_num]
                     elseif idx < 0
@@ -141,7 +141,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
             if fix_num == i
                 for k=1:SN
                     for j in 1:SN
-                        idx = i+j
+                        idx = i + j
                         if idx == VN
                             dF = dFdp[k]
                         elseif idx > VN
@@ -163,9 +163,9 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
 
         # update error
         error = 0.0
-        for i in 1:MN
+        @inbounds for i in eachindex(e)
             vx[i] += e[i]
-            error += e[i]*e[i]
+            error += e[i] * e[i]
         end
         error = sqrt(error)
         if isnan(error) || isinf(error)
@@ -177,7 +177,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
     for i in 1:VN
         if fix_num == i
             for j in 1:MN
-                idx = i+j
+                idx = i + j
                 if idx > VN
                     idx -= VN
                 end
@@ -277,25 +277,25 @@ function new_curve!(p::Vector{Float64})
         newtons_method!(x, real_part, imaginary_part, fix_num, p, successful)
 
         # maximum variation
-        for i in eachindex(dx)
-            @inbounds dx[i] = x[i] - px[i]
+        for (i, prev) in enumerate(px)
+            @inbounds dx[i] = x[i] - prev
         end
         sum::Float64 = 0.0
         for i in eachindex(dx)
-            sum += dx[i] * dx[i]
+            @inbounds sum += dx[i] * dx[i]
         end
         ave::Float64 = sqrt(sum)
         for i in eachindex(dx)
-            dx[i] /= ave
+            @inbounds dx[i] /= ave
         end
         px = copy(x)
         for (i, diff) in enumerate(dx)
-            x[i] += abs(RATE) * diff
+            @inbounds x[i] += abs(RATE) * diff
         end
 
         # fix variable with maximum variation
         j::Int = 1
-        for i in 2:VN
+        for i in 2:length(dx)
             if abs(dx[j]) < abs(dx[i])
                 j = i
             end
