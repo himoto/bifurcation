@@ -9,7 +9,7 @@ Consider the following system of ordinary differential equations: d***x***/dt = 
 1. Determine the fixed point vector, ***x***<sup>∗</sup>, solving ***F***(***x***<sup>∗</sup>) = **0**
 1. Construct the Jacobian matrix, __*J*__(***x***) = *∂*__*F*__(***x***)/*∂*__*x*__
 1. Compute eigenvalues of __*J*__(***x***<sup>∗</sup>): det |__*J*__(***x***<sup>∗</sup>) − *λ*__*E*__| = 0
-1. Stability or instability of ***x***<sup>∗</sup> based on the real parts, Re(*λ*), of eigenvalues
+1. Conclude on stability or instability of ***x***<sup>∗</sup> based on the real parts of eigenvalues
     - All eigenvalues have real parts less than zero → ***x***<sup>∗</sup> is stable
     - At least one of the eigenvalues has a real part greater than zero
 → ***x***<sup>∗</sup> is unstable
