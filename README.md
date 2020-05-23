@@ -1,5 +1,3 @@
-![](misc/bifurcation.png)
-
 # Bifurcation Analysis
 #### A numerical study of the changes in the dynamics and stability of a system upon variations in its parameters
 Rata *et al.*, *Curr. Biol.* (2018)
