@@ -4,11 +4,7 @@
 
 #### A numerical study of the changes in the dynamics and stability of a system upon variations in its parameters
 
-<br><br>
-
-- Rata *et al.*, *Curr. Biol.* (2018)
-![Subp_1NMPP1](examples/Rata2018/Subp_1NMPP1.png)
-Signal-response curves for mitotic substrate phosphorylation in single cells as a function of inhibitor concentration. Steady-state substrate phosphorylation is high (red), low (blue), or intermediate (orange).
+<br>
 
 ## Procedure for stability analysis at fixed points
 Consider the following system of ordinary differential equations: d***x***/dt = ***F***(***x***)
