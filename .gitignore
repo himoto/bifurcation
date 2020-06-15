@@ -5,5 +5,8 @@
 *.ipynb
 .ipynb_checkpoints
 
+# Differential Equation
+differential_equation.jl
+
 # Data
 *.dat
