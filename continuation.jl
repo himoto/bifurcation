@@ -4,7 +4,7 @@ using LinearAlgebra
 using ForwardDiff: jacobian
 
 
-const SN = V.len_f_vars     # num of state variables
+const SN = V.NUM            # num of state variables
 const PN = 1                # num of parameters
 const VN = SN + PN          # num of variables
 const MN = SN               # dim of Newton's method
@@ -228,28 +228,13 @@ function new_curve!(p::Vector{Float64})
     successful::Bool = true
     newtons_method!(x, real_part, imaginary_part, fix_num, p, successful)
 
-    write(
-        FOUT1, @sprintf(
-            "%d\t", count
-        )
-    )
+    write(FOUT1, @sprintf("%d\t", count))
     for i in 1:VN
-        write(
-            FOUT1, @sprintf(
-                "%10.8e\t", x[i]
-            )
-        )
+        write(FOUT1, @sprintf("%10.8e\t", x[i]))
     end
+    write(FOUT1, @sprintf("%d\n", fix_num))
     write(
-        FOUT1, @sprintf(
-            "%d\n", fix_num
-        )
-    )
-    write(
-        FOUT2, @sprintf(
-            "%d\t", count
-        )
-    )
+        FOUT2, @sprintf("%d\t", count))
     for i in 1:SN
         write(
             FOUT2, @sprintf(
@@ -257,11 +242,7 @@ function new_curve!(p::Vector{Float64})
             )
         )
     end
-    write(
-        FOUT2, @sprintf(
-            "%10.8e\t%d\n", p[BP], fix_num
-        )
-    )
+    write(FOUT2, @sprintf("%10.8e\t%d\n", p[BP], fix_num))
     count += 1
 
     # keep optimums
@@ -307,28 +288,12 @@ function new_curve!(p::Vector{Float64})
             successful = false
         end
 
-        write(
-            FOUT1, @sprintf(
-                "%d\t", count
-            )
-        )
+        write(FOUT1, @sprintf("%d\t", count))
         for i in 1:VN
-            write(
-                FOUT1, @sprintf(
-                    "%10.8e\t", x[i]
-                )
-            )
+            write(FOUT1, @sprintf("%10.8e\t", x[i]))
         end
-        write(
-            FOUT1, @sprintf(
-                "%d\n", fix_num
-            )
-        )
-        write(
-            FOUT2, @sprintf(
-                "%d\t", count
-            )
-        )
+        write(FOUT1, @sprintf("%d\n", fix_num))
+        write(FOUT2, @sprintf("%d\t", count))
         for i in 1:SN
             write(
                 FOUT2, @sprintf(
@@ -336,11 +301,7 @@ function new_curve!(p::Vector{Float64})
                 )
             )
         end
-        write(
-            FOUT2, @sprintf(
-                "%10.8e\t%d\n", p[BP], fix_num
-            )
-        )
+        write(FOUT2, @sprintf("%10.8e\t%d\n", p[BP], fix_num))
         count += 1
     end
 
