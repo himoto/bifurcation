@@ -1,5 +1,5 @@
 module C
-const param_names = [
+const NAMES = [
     "InhCDK"
     "CycBCdk1T"
     "CycACdk2T"
@@ -38,10 +38,10 @@ const param_names = [
 ]
 
 #name2idx
-for (idx,name) in enumerate(param_names)
+for (idx,name) in enumerate(NAMES)
     eval(Meta.parse("const $name = $idx"))
 end
 
-const len_f_params = length(param_names)
+const NUM = length(NAMES)
 
 end  # module

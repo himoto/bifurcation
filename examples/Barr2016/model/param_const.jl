@@ -1,5 +1,5 @@
-function f_params()::Vector{Float64}
-    p::Vector{Float64} = zeros(C.len_f_params)
+function param_values()::Vector{Float64}
+    p::Vector{Float64} = zeros(C.NUM)
 
     p[C.kscyce] = 0.003
     p[C.kdcyce] = 0.001

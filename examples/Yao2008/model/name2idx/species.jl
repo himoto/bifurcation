@@ -1,5 +1,5 @@
 module V
-const var_names = [
+const NAMES = [
     "M"
     "E"
     "CD"
@@ -9,9 +9,9 @@ const var_names = [
     "RE"
 ]
 
-for (idx,name) in enumerate(var_names)
+for (idx,name) in enumerate(NAMES)
     eval(Meta.parse("const $name = $idx"))
 end
 
-const len_f_vars = length(var_names)
+const NUM = length(NAMES)
 end  # module

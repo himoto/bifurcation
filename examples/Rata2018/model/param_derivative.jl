@@ -1,6 +1,6 @@
 function get_derivatives(u::Vector{Float64},p::Vector{Float64})
     # derivatives: dF/d[bifurcation_param]
-    dFdp::Vector{Float64} = zeros(V.len_f_vars)
+    dFdp::Vector{Float64} = zeros(V.NUM)
 
     Wee1p = 1 - u[V.Wee1] - u[V.Wee1pp]
     Cdc25p = 1 - u[V.Cdc25] - u[V.Cdc25pp]

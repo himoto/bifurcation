@@ -14,7 +14,7 @@ end
 
 function get_steady_state(p::Vector{Float64})
     tspan::Tuple{Float64,Float64} = (0.0,Inf)
-    u0::Vector{Float64} = zeros(V.len_f_vars)
+    u0::Vector{Float64} = zeros(V.NUM)
 
     prob = ODEProblem(diffeq,u0,tspan,p)
     prob = SteadyStateProblem(prob)
