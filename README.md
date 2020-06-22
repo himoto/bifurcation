@@ -25,8 +25,6 @@ Consider the following system of ordinary differential equations: d***x***/dt = 
 ## Plotting bifurcation diagram
 ```julia
 # Change directory to examples/XXX
-run(`sh create_diffeq.sh`)
-
 include("bifurcation.jl")
 using .Bifurcation
 
