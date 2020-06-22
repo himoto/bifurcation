@@ -73,7 +73,7 @@ end
 
 # Newton's method
 function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imaginary_part::Vector{Float64}, 
-                        fix_num::Int, p::Vector{Float64}, successful::Bool)
+                         fix_num::Int, p::Vector{Float64}, successful::Bool)
     u::Vector{Float64} = zeros(SN)
     vx::Vector{Float64} = zeros(MN)
     s::Matrix{Float64} = zeros(MN, MN+1)
@@ -229,12 +229,11 @@ function new_curve!(p::Vector{Float64})
     newtons_method!(x, real_part, imaginary_part, fix_num, p, successful)
 
     write(FOUT1, @sprintf("%d\t", count))
-    for i in 1:VN
+    for i in eachindex(x)
         write(FOUT1, @sprintf("%10.8e\t", x[i]))
     end
     write(FOUT1, @sprintf("%d\n", fix_num))
-    write(
-        FOUT2, @sprintf("%d\t", count))
+    write(FOUT2, @sprintf("%d\t", count))
     for i in 1:SN
         write(
             FOUT2, @sprintf(
@@ -289,7 +288,7 @@ function new_curve!(p::Vector{Float64})
         end
 
         write(FOUT1, @sprintf("%d\t", count))
-        for i in 1:VN
+        for i in eachindex(x)
             write(FOUT1, @sprintf("%10.8e\t", x[i]))
         end
         write(FOUT1, @sprintf("%d\n", fix_num))
