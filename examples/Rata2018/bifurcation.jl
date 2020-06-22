@@ -4,6 +4,9 @@ using PyPlot
 
 include("model/model.jl")
 using .Model
+if !isfile("./differential_equation.jl")
+    run(`sh create_diffeq.sh`)
+end
 include("./differential_equation.jl")
 include("../../continuation.jl")
 
@@ -18,7 +21,7 @@ function analysis()
     br = []
 
     for i in 1:4
-        global p = f_params()
+        global p = param_values()
         # i==1 -> Control
         if i == 2 # Wee1 inhibition
             p[C.kweeS] = 0.0

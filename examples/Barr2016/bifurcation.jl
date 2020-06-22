@@ -4,6 +4,9 @@ using PyPlot
 
 include("model/model.jl")
 using .Model
+if !isfile("./differential_equation.jl")
+    run(`sh create_diffeq.sh`)
+end
 include("./differential_equation.jl")
 include("../../continuation.jl")
 
@@ -18,7 +21,7 @@ function analysis()
     br = []
 
     for i in 1:6
-        global p = f_params()
+        global p = param_values()
 
         if i == 1
             p[C.Emi1T] = 0.0

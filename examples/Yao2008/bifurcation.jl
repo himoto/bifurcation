@@ -4,6 +4,9 @@ using PyPlot
 
 include("model/model.jl")
 using .Model
+if !isfile("./differential_equation.jl")
+    run(`sh create_diffeq.sh`)
+end
 include("./differential_equation.jl")
 include("../../continuation.jl")
 
@@ -13,7 +16,7 @@ function analysis()
     # BP: name(index) of bifurcation parameter
     global BP = C.S
 
-    global p = f_params()
+    global p = param_values()
     new_curve!(p)
     fp = readdlm("./Data/fp.dat",'\t',Float64,'\n')
     ev = readdlm("./Data/ev.dat",'\t',Float64,'\n')
