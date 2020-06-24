@@ -16,74 +16,73 @@ const NEPS = 1e-12          # eps of Newton's method
 
 
 # matrix transformation (large diagonal elements move to upper) k: pivot
-function pivoting!(m::Int, s::Matrix{Float64}, k::Int)
-    v0::Vector{Float64} = zeros(m+1)
-    v1::Vector{Float64} = zeros(m+1)
+function pivoting!(s::Matrix{Float64}, pivot::Int)
+    v0::Vector{Float64} = zeros(MN+1)
+    v1::Vector{Float64} = zeros(MN+1)
     possess::Int = 0
-    max::Float64 = 0.0
+    max_element::Float64 = 0.0
 
-    for i in k:m
-        r = abs(s[i, k])
-        if max <= r
-            max = r
+    for i in pivot:size(s,1)
+        current_element = abs(s[i, pivot])
+        if max_element <= current_element
+            max_element = current_element
             possess = i
         end
     end
 
-    for j in 1:m+1
+    for j in 1:size(s,2)
         v0[j] = s[possess, j]
-        v1[j] = s[k, j]
+        v1[j] = s[pivot, j]
     end
 
-    for j in 1:m+1
+    for j in 1:size(s,2)
         s[possess, j] = v1[j]
-        s[k, j] = v0[j]
+        s[pivot, j] = v0[j]
     end
 end
 
 # Gaussian elimination (row reduction)
-function gaussian_elimination!(m::Int, s::Matrix{Float64}, e::Vector{Float64})
-    for i in 1:m
-        pivoting!(m, s, i)
+function gaussian_elimination!(s::Matrix{Float64}, e::Vector{Float64})
+    for i in 1:MN
+        pivoting!(s, i)
     end
-
-    for l in 1:m                 # forward
-        if s[l, l] != 0.0
-            w = 1.0 / s[l, l]
-        else
-            w = 1.0
-        end
-        for j in l:m+1
-            s[l, j] *= w
-            for i in l:m
-                s[i, j] -= s[i, l] * s[l, j]
+    # forward
+    for k in 1:size(s,1)
+        w = (s[k, k] != 0.0) ? 1.0 / s[k, k] : 1.0
+        for j in k:size(s,2)
+            s[k, j] *= w
+            for i in k:size(s,1)
+                s[i, j] -= s[i, k] * s[k, j]
             end
         end
     end
-
-    for i in m:-1:1              # backward
+    # backward
+    for i in size(s,1):-1:1
         sum = 0.0
-        for j in i:m
+        for j in i:length(e)
             sum += s[i, j] * e[j]
         end
-        e[i] = s[i, m+1] - sum
+        e[i] = s[i, end] - sum
     end
 end
 
 
 # Newton's method
-function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imaginary_part::Vector{Float64}, 
-                         fix_num::Int, p::Vector{Float64}, successful::Bool)
+function newtons_method!(x::Vector{Float64},
+                         real_part::Vector{Float64},
+                         imaginary_part::Vector{Float64}, 
+                         fix_num::Int, p::Vector{Float64},
+                         successful::Bool)
     u::Vector{Float64} = zeros(SN)
     vx::Vector{Float64} = zeros(MN)
     s::Matrix{Float64} = zeros(MN, MN+1)
 
-    for i in 1:VN
+    for i in eachindex(x)
         if fix_num == i
-            for j in 1:MN
+            for j in eachindex(vx)
                 idx = i + j
-                if idx > VN
-                    idx -= VN
+                if idx > length(x)
+                    idx -= length(x)
                 end
                 vx[j] = x[idx]
             end
@@ -101,22 +100,16 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
         for i in 1:VN
             if fix_num == i
                 idx_param = VN - i
-                if idx_param == 0
-                    y = x[fix_num]
-                else
-                    y = vx[idx_param]
-                end
-                p[BP] = y
-                for j in 1:MN
+                p[BP] = (idx_param == 0) ? x[fix_num] : vx[idx_param]
+                for j in eachindex(u)
                     idx = j - i
                     if idx == 0
-                        y = x[fix_num]
+                        u[j] = x[fix_num]
                     elseif idx < 0
-                        y = vx[VN+idx]
+                        u[j] = vx[VN+idx]
                     else
-                        y = vx[idx]
+                        u[j] = vx[idx]
                     end
-                    u[j] = y
                 end
                 break
             else
@@ -139,17 +132,16 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
         # s = [dF-F]
         for i in 1:VN
             if fix_num == i
-                for k=1:SN
+                for k in 1:SN
                     for j in 1:SN
                         idx = i + j
                         if idx == VN
-                            dF = dFdp[k]
+                            s[k, j] = dFdp[k]
                         elseif idx > VN
-                            dF = dFdx[k, idx-VN]
+                            s[k, j] = dFdx[k, idx-VN]
                         else
-                            dF = dFdx[k, idx]
+                            s[k, j] = dFdx[k, idx]
                         end
-                        s[k, j] = dF
                     end
                     s[k, VN] = -F[k]
                 end
@@ -159,7 +151,7 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
             end
         end
 
-        gaussian_elimination!(MN, s, e)
+        gaussian_elimination!(s, e)
 
         # update error
         error = 0.0
@@ -174,12 +166,12 @@ function newtons_method!(x::Vector{Float64}, real_part::Vector{Float64}, imagina
         end
     end
 
-    for i in 1:VN
+    for i in eachindex(x)
         if fix_num == i
-            for j in 1:MN
+            for j in eachindex(vx)
                 idx = i + j
-                if idx > VN
-                    idx -= VN
+                if idx > length(x)
+                    idx -= length(x)
                 end
                 x[idx] = vx[j]
             end
@@ -211,17 +203,15 @@ function new_curve!(p::Vector{Float64})
     FOUT1 = open("./Data/fp.dat", "w")  # file for fixed point
     FOUT2 = open("./Data/ev.dat", "w")  # file for eigenvalues
 
-    fix_num0::Int = VN
-
     # initial condition
     x[1:SN] = get_steady_state(p)
-    x[end] = p[BP]
+    x[end] = p[BP]  # x-axis
 
     direction::Bool = false  # <--- || --->
 
     # initial fixed
-    fix_val::Float64 = x[fix_num0]
-    fix_num::Int = fix_num0
+    fix_val::Float64 = x[end]
+    fix_num::Int = VN
     x[fix_num] = fix_val
 
     # first Newton's method
