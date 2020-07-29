@@ -17,7 +17,7 @@ function analysis()
     global BP = C.S
 
     global p = param_values()
-    new_curve!(p)
+    new_curve!(p, direction=false)
     fp = readdlm("./Data/fp.dat",'\t',Float64,'\n')
     ev = readdlm("./Data/ev.dat",'\t',Float64,'\n')
     br = bistable_regime(ev)

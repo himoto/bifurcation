@@ -15,7 +15,7 @@ const RATE = 1e-3           # variation rate
 const NEPS = 1e-12          # eps of Newton's method
 
 
-# matrix transformation (large diagonal elements move to upper) k: pivot
+# matrix transformation (large diagonal elements move to upper)
 function pivoting!(s::Matrix{Float64}, pivot::Int)
     v0::Vector{Float64} = zeros(MN+1)
     v1::Vector{Float64} = zeros(MN+1)
@@ -68,11 +68,13 @@ end
 
 
 # Newton's method
-function newtons_method!(x::Vector{Float64},
-                         real_part::Vector{Float64},
-                         imaginary_part::Vector{Float64}, 
-                         fix_num::Int, p::Vector{Float64},
-                         successful::Bool)
+function newtons_method!(
+        x::Vector{Float64},
+        real_part::Vector{Float64},
+        imaginary_part::Vector{Float64}, 
+        fix_num::Int,
+        p::Vector{Float64},
+        successful::Bool)
     u::Vector{Float64} = zeros(SN)
     vx::Vector{Float64} = zeros(MN)
     s::Matrix{Float64} = zeros(MN, MN+1)
@@ -183,7 +185,7 @@ function newtons_method!(x::Vector{Float64},
 end
 
 
-function new_curve!(p::Vector{Float64})
+function new_curve!(p::Vector{Float64}; direction::Bool=false)
     count::Int = 1
     x::Vector{Float64} = zeros(VN)
     dx::Vector{Float64} = zeros(VN)
@@ -206,8 +208,6 @@ function new_curve!(p::Vector{Float64})
     # initial condition
     x[1:SN] = get_steady_state(p)
     x[end] = p[BP]  # x-axis
-
-    direction::Bool = false  # <--- || --->
 
     # initial fixed
     fix_val::Float64 = x[end]
@@ -264,13 +264,12 @@ function new_curve!(p::Vector{Float64})
         end
 
         # fix variable with maximum variation
-        j::Int = 1
+        fix_num = 1
         for i in 2:length(dx)
-            if abs(dx[j]) < abs(dx[i])
-                j = i
+            if abs(dx[fix_num]) < abs(dx[i])
+                fix_num = i
             end
         end
-        fix_num = j
 
         # Stop calc.
         if x[end] <= 0.0
