@@ -298,14 +298,12 @@ function new_curve!(p::Vector{Float64}; direction::Bool=false)
 end
 
 
-function bistable_regime(ev::Matrix{Float64})
+function get_bistable_regime(ev::Matrix{Float64})
     br::Vector{Int} = []
-
     for i in 1:size(ev, 1)
         if maximum(ev[i, [2j for j in 1:SN]]) > 0.0
             push!(br, i)
         end
     end
-
     return br
 end

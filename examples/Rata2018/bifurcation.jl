@@ -37,7 +37,7 @@ function analysis()
         new_curve!(p, direction=false)
         push!(fp,readdlm("./Data/fp.dat",'\t',Float64,'\n'))
         push!(ev,readdlm("./Data/ev.dat",'\t',Float64,'\n'))
-        push!(br,bistable_regime(ev[i]))
+        push!(br,get_bistable_regime(ev[i]))
     end
 end
 
